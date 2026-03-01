@@ -1,0 +1,11 @@
+name: Build macOS App
+
+on:
+push:
+branches: [ main ]
+pull_request:
+branches: [ main ]
+
+jobs:
+build-macos:
+runs-on: macos-latest
