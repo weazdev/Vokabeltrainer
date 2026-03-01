@@ -1,9 +1,27 @@
 name: Build macOS App
-
 on:
   push:
-    branches: [ main ]
-
+  branches: [ main ]
 jobs:
-  build-macos:
-    runs-on: macos-latest
+build-macos:
+runs-on: macos-latest
+steps:
+  - name: Checkout Code
+uses: actions/checkout@v4
+  - name: Set up Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: '3.12'
+      - name: Install Briefcase
+    run: |
+pip install briefcase
+  - name: Build App with Briefcase
+    run: |
+briefcase create macOS --no-input
+briefcase build macOS
+briefcase package macOS --no-input
+      - name: Upload Artifact
+    uses: actions/upload-artifact@v4
+    with:
+name: Vokabeltrainer-macOS
+    path: build//macos/.dmg
